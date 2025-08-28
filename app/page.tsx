@@ -50,8 +50,13 @@ export default function Home() {
   const fetchLyrics = async () => {
     try {
       setLoading(true);
-      const response = await fetch('https://lyrics.kenabot.xyz/v1/lyrics/all');
+      const response = await fetch('/api/lyrics');
       const data = await response.json();
+
+      if (data.error || !data.data || data.data.length === 0) {
+        throw new Error(data.error || 'No lyrics data received');
+      }
+
       setLyrics(data.data);
       setFilteredLyrics(data.data);
     } catch (error) {
