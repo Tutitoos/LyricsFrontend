@@ -1,31 +1,18 @@
 @import "tailwindcss";
 
-:root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --accent: #ff3b30;
-  --accent-secondary: #007aff;
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --card-bg: rgba(28, 28, 30, 0.8);
-  --search-bg: rgba(44, 44, 46, 0.8);
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-accent: #ff3b30;
+  --color-accent-secondary: #007aff;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    --background: #ffffff;
-    --foreground: #000000;
-    --card-bg: rgba(255, 255, 255, 0.8);
-    --search-bg: rgba(242, 242, 247, 0.8);
-    --glass-bg: rgba(0, 0, 0, 0.05);
-    --glass-border: rgba(0, 0, 0, 0.1);
+  @theme {
+    --color-background: #ffffff;
+    --color-foreground: #000000;
   }
 }
 
@@ -35,10 +22,12 @@
 
 body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  color: white;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 /* App Container */
@@ -81,7 +70,7 @@ body {
 }
 
 .title-secondary {
-  color: var(--foreground);
+  color: white;
 }
 
 .main-subtitle {
@@ -122,11 +111,11 @@ body {
   width: 100%;
   padding: 1rem 1rem 1rem 3.5rem;
   font-size: 1.1rem;
-  background: var(--search-bg);
+  background: rgba(44, 44, 46, 0.8);
   backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 2rem;
-  color: var(--foreground);
+  color: white;
   outline: none;
   transition: all 0.3s ease;
 }
@@ -136,7 +125,7 @@ body {
 }
 
 .search-input:focus {
-  border-color: var(--accent);
+  border-color: #ff3b30;
   box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.1);
   transform: translateY(-2px);
 }
@@ -148,10 +137,13 @@ body {
   color: rgba(255, 255, 255, 0.6);
   transition: all 0.2s ease;
   border-radius: 50%;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .clear-button:hover {
-  color: var(--foreground);
+  color: white;
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -215,6 +207,7 @@ body {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: white;
 }
 
 .results-count {
@@ -232,9 +225,9 @@ body {
 
 /* Lyrics Card */
 .lyrics-card {
-  background: var(--card-bg);
+  background: rgba(28, 28, 30, 0.8);
   backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1.5rem;
   padding: 1.5rem;
   cursor: pointer;
@@ -250,7 +243,7 @@ body {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  background: linear-gradient(90deg, #ff3b30, #007aff);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -273,7 +266,7 @@ body {
 .lyrics-card-icon {
   width: 3rem;
   height: 3rem;
-  background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+  background: linear-gradient(45deg, #ff3b30, #007aff);
   border-radius: 1rem;
   display: flex;
   align-items: center;
@@ -291,6 +284,7 @@ body {
   font-weight: 600;
   margin: 0 0 0.25rem 0;
   text-transform: capitalize;
+  color: white;
 }
 
 .artist-name {
@@ -320,27 +314,28 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--accent);
+  color: #ff3b30;
   font-size: 0.9rem;
   font-weight: 500;
   transition: color 0.2s ease;
 }
 
 .lyrics-card:hover .view-more {
-  color: var(--accent-secondary);
+  color: #007aff;
 }
 
 /* Loading State */
 .loading-state {
   text-align: center;
   padding: 4rem 2rem;
+  color: white;
 }
 
 .loading-spinner {
   width: 3rem;
   height: 3rem;
   border: 3px solid rgba(255, 255, 255, 0.1);
-  border-top: 3px solid var(--accent);
+  border-top: 3px solid #ff3b30;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 1rem;
@@ -355,6 +350,7 @@ body {
 .empty-state {
   text-align: center;
   padding: 4rem 2rem;
+  color: white;
 }
 
 .empty-icon {
@@ -365,6 +361,7 @@ body {
 .empty-state h3 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
+  color: white;
 }
 
 .empty-state p {
@@ -401,6 +398,6 @@ html {
 .search-input:focus,
 .lyrics-card:focus,
 .clear-button:focus {
-  outline: 2px solid var(--accent);
+  outline: 2px solid #ff3b30;
   outline-offset: 2px;
 }
