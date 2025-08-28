@@ -1,41 +1,39 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import SearchInput from './components/SearchInput';
-import LyricsCard from './components/LyricsCard';
 import { LyricsItem } from './types/lyrics';
 
-// Sample data for demonstration (avoiding copyrighted content)
+// Sample data for demonstration
 const sampleLyrics: LyricsItem[] = [
   {
     ref: "sample-1",
     key: "Artist Song Title",
-    value: "Sample lyrics preview text here...\nThis is placeholder content\nTo demonstrate the layout"
+    value: "Sample lyrics preview text here...\nThis is placeholder content\nTo demonstrate the layout\nWith beautiful modern design"
   },
   {
     ref: "sample-2", 
     key: "Another Artist Song",
-    value: "Another sample preview...\nShowing multiple lines\nOf placeholder text"
+    value: "Another sample preview...\nShowing multiple lines\nOf placeholder text\nIn this innovative interface"
   },
   {
     ref: "sample-3",
     key: "Example Singer Track",
-    value: "Example lyrics content...\nMultiple lines for demo\nPurposes only"
+    value: "Example lyrics content...\nMultiple lines for demo\nPurposes only here\nWith glassmorphism effects"
   },
   {
     ref: "sample-4",
     key: "Demo Artist Music",
-    value: "Demo lyrics text...\nFor layout demonstration\nNon-copyrighted content"
+    value: "Demo lyrics text...\nFor layout demonstration\nNon-copyrighted content\nModern card design showcase"
   },
   {
     ref: "sample-5",
     key: "Sample Band Melody",
-    value: "Sample text for lyrics...\nShowing grid layout\nPlaceholder content"
+    value: "Sample text for lyrics...\nShowing grid layout\nPlaceholder content\nWith smooth animations"
   },
   {
     ref: "sample-6",
     key: "Test Singer Tune",
-    value: "Test lyrics content...\nFor design purposes\nExample text only"
+    value: "Test lyrics content...\nFor design purposes\nExample text only\nBeautiful gradient effects"
   }
 ];
 
@@ -52,8 +50,9 @@ export default function Home() {
   const fetchLyrics = async () => {
     try {
       setLoading(true);
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
       // In production: const response = await fetch('https://lyrics.kenabot.xyz/v1/lyrics/all');
-      // Using sample data for demonstration
       setLyrics(sampleLyrics);
       setFilteredLyrics(sampleLyrics);
     } catch (error) {
@@ -65,8 +64,10 @@ export default function Home() {
     }
   };
 
-  const handleSearch = (query: string) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
     setSearchQuery(query);
+    
     if (!query.trim()) {
       setFilteredLyrics(lyrics);
       return;
@@ -80,48 +81,167 @@ export default function Home() {
     setFilteredLyrics(filtered);
   };
 
+  const clearSearch = () => {
+    setSearchQuery('');
+    setFilteredLyrics(lyrics);
+  };
+
   const handleLyricsClick = (item: LyricsItem) => {
     console.log('Opening lyrics for:', item.key);
   };
 
   return (
-    <div className="simple-app">
-      {/* Search Section */}
-      <div className="search-header">
+    <div className="modern-app">
+      {/* Header */}
+      <header className="app-header">
         <h1 className="app-title">LyricsHub</h1>
-        <SearchInput onSearch={handleSearch} />
-      </div>
+        <p className="app-subtitle">
+          Descubre y explora letras de canciones con un diseño innovador
+        </p>
+        
+        {/* Search */}
+        <div className="search-section">
+          <div className="search-container">
+            <div className="search-input-wrapper">
+              <svg
+                className="search-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={handleSearch}
+                placeholder="Buscar letras de canciones..."
+                className="search-input"
+              />
+              <button
+                onClick={clearSearch}
+                className="clear-button"
+                type="button"
+              >
+                <svg
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
 
       {/* Results */}
-      <div className="lyrics-results">
+      <main className="results-section">
         {searchQuery && (
-          <div className="results-info">
-            <p>Resultados para "{searchQuery}" - {filteredLyrics.length} encontrado{filteredLyrics.length !== 1 ? 's' : ''}</p>
+          <div className="results-header">
+            <h2 className="results-title">
+              Resultados para "{searchQuery}"
+            </h2>
+            <div className="results-count">
+              {filteredLyrics.length} canción{filteredLyrics.length !== 1 ? 'es' : ''} encontrada{filteredLyrics.length !== 1 ? 's' : ''}
+            </div>
           </div>
         )}
 
         {loading ? (
-          <div className="loading-simple">
+          <div className="loading-state">
             <div className="loading-spinner"></div>
-            <p>Cargando letras...</p>
+            <p className="loading-text">Cargando letras...</p>
           </div>
         ) : filteredLyrics.length === 0 ? (
-          <div className="empty-simple">
-            <h3>No se encontraron resultados</h3>
-            <p>Intenta con otros términos de búsqueda</p>
+          <div className="empty-state">
+            <div className="empty-icon">🎵</div>
+            <h3 className="empty-title">No se encontraron resultados</h3>
+            <p className="empty-description">
+              Intenta con otros términos de búsqueda
+            </p>
           </div>
         ) : (
-          <div className="lyrics-grid-simple">
-            {filteredLyrics.map((lyricsItem) => (
-              <LyricsCard
-                key={lyricsItem.ref}
-                lyrics={lyricsItem}
-                onClick={() => handleLyricsClick(lyricsItem)}
-              />
-            ))}
+          <div className="lyrics-grid">
+            {filteredLyrics.map((lyricsItem, index) => {
+              const [artist, ...songParts] = lyricsItem.key.split(' ');
+              const song = songParts.join(' ');
+              
+              return (
+                <article
+                  key={lyricsItem.ref}
+                  className="lyrics-card"
+                  onClick={() => handleLyricsClick(lyricsItem)}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`Ver letras de ${song} por ${artist}`}
+                >
+                  <div className="card-header">
+                    <div className="song-info">
+                      <h3 className="song-title">{song}</h3>
+                      <p className="artist-name">{artist}</p>
+                    </div>
+                    <button className="play-button" aria-label="Reproducir">
+                      <svg
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        className="w-6 h-6"
+                      >
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  <div className="lyrics-preview">
+                    <p className="lyrics-text">
+                      {lyricsItem.value.split('\n').map((line, lineIndex) => (
+                        <span key={lineIndex}>
+                          {line}
+                          {lineIndex < lyricsItem.value.split('\n').length - 1 && <br />}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                  
+                  <div className="card-footer">
+                    <div className="view-more">
+                      <span>Ver letras completas</span>
+                      <svg
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        className="w-4 h-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </div>
+                    <div className="card-stats">
+                      <span>♪ {Math.floor(Math.random() * 1000) + 100}</span>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }
