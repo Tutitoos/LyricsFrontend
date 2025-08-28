@@ -4,40 +4,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { LyricsItem } from './types/lyrics';
 
-// Sample data for demonstration
-const sampleLyrics: LyricsItem[] = [
-  {
-    ref: "sample-1",
-    key: "Artist Song Title",
-    value: "Sample lyrics preview text here...\nThis is placeholder content\nTo demonstrate the layout\nWith beautiful modern design"
-  },
-  {
-    ref: "sample-2", 
-    key: "Another Artist Song",
-    value: "Another sample preview...\nShowing multiple lines\nOf placeholder text\nIn this innovative interface"
-  },
-  {
-    ref: "sample-3",
-    key: "Example Singer Track",
-    value: "Example lyrics content...\nMultiple lines for demo\nPurposes only here\nWith glassmorphism effects"
-  },
-  {
-    ref: "sample-4",
-    key: "Demo Artist Music",
-    value: "Demo lyrics text...\nFor layout demonstration\nNon-copyrighted content\nModern card design showcase"
-  },
-  {
-    ref: "sample-5",
-    key: "Sample Band Melody",
-    value: "Sample text for lyrics...\nShowing grid layout\nPlaceholder content\nWith smooth animations"
-  },
-  {
-    ref: "sample-6",
-    key: "Test Singer Tune",
-    value: "Test lyrics content...\nFor design purposes\nExample text only\nBeautiful gradient effects"
-  }
-];
-
 export default function Home() {
   const router = useRouter();
   const [lyrics, setLyrics] = useState<LyricsItem[]>([]);
@@ -237,9 +203,6 @@ export default function Home() {
                           d="M9 5l7 7-7 7"
                         />
                       </svg>
-                    </div>
-                    <div className="card-stats">
-                      <span>♪ {Math.floor(Math.random() * 1000) + 100}</span>
                     </div>
                   </div>
                 </article>
