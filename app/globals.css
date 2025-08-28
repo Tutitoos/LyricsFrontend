@@ -1,26 +1,666 @@
 @import "tailwindcss";
 
+/* Modern CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* CSS Variables for Modern Theme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-bg: #0a0a0f;
+  --secondary-bg: #1a1a2e;
+  --accent-purple: #6c5ce7;
+  --accent-pink: #fd79a8;
+  --accent-blue: #74b9ff;
+  --accent-green: #00b894;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-glow: 0 8px 32px rgba(108, 92, 231, 0.3);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Body Styling */
+body {
+  background: var(--primary-bg);
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(108, 92, 231, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(253, 121, 168, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(116, 185, 255, 0.2) 0%, transparent 50%);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* App Container */
+.modern-app {
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header Section */
+.app-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.app-title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 50%, var(--accent-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.app-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink), var(--accent-blue));
+  border-radius: 2px;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.app-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+/* Search Section */
+.search-section {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.search-container {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 8px;
+  box-shadow: var(--shadow-glow);
+  transition: all 0.3s ease;
+}
+
+.search-container:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(108, 92, 231, 0.4);
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 20px;
+  width: 20px;
+  height: 20px;
+  color: var(--accent-purple);
+  z-index: 2;
+}
+
+.search-input {
+  width: 100%;
+  padding: 18px 60px 18px 56px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+.search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.clear-button {
+  position: absolute;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: var(--accent-purple);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.search-input:not(:placeholder-shown) + .clear-button {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.clear-button:hover {
+  background: var(--accent-pink);
+  transform: scale(1.1);
+}
+
+/* Results Section */
+.results-section {
+  margin-top: 4rem;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.results-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.results-count {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Lyrics Grid */
+.lyrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Lyrics Card - Modern Design */
+.lyrics-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  group: hover;
+}
+
+.lyrics-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(108, 92, 231, 0.1) 0%, 
+    rgba(253, 121, 168, 0.1) 50%, 
+    rgba(116, 185, 255, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.lyrics-card:hover::before {
+  opacity: 1;
+}
+
+.lyrics-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(108, 92, 231, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.song-info {
+  flex: 1;
+}
+
+.song-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+  line-height: 1.3;
+}
+
+.artist-name {
+  font-size: 1rem;
+  color: var(--accent-purple);
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.play-button {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.lyrics-card:hover .play-button {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(108, 92, 231, 0.5);
+}
+
+.lyrics-preview {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 1.5rem;
+}
+
+.lyrics-text {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.view-more {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent-blue);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.lyrics-card:hover .view-more {
+  color: var(--accent-pink);
+  transform: translateX(4px);
+}
+
+.card-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 3px solid transparent;
+  border-top: 3px solid var(--accent-purple);
+  border-right: 3px solid var(--accent-pink);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 2rem;
+}
+
+.loading-text {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 6rem 2rem;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.empty-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.empty-description {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.lyrics-card {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.lyrics-card:nth-child(1) { animation-delay: 0.1s; }
+.lyrics-card:nth-child(2) { animation-delay: 0.2s; }
+.lyrics-card:nth-child(3) { animation-delay: 0.3s; }
+.lyrics-card:nth-child(4) { animation-delay: 0.4s; }
+.lyrics-card:nth-child(5) { animation-delay: 0.5s; }
+.lyrics-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modern-app {
+    padding: 1rem;
+  }
+  
+  .app-header {
+    margin-bottom: 3rem;
+  }
+  
+  .lyrics-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .lyrics-card {
+    padding: 1.5rem;
+  }
+  
+  .search-input {
+    padding: 16px 50px 16px 50px;
+    font-size: 1rem;
+  }
+  
+  .results-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus states */
+.search-input:focus,
+.lyrics-card:focus,
+.clear-button:focus,
+.play-button:focus {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 2px;
+}
+
+/* Individual Lyrics Page Styles */
+.lyrics-page {
+  min-height: 100vh;
+  background: var(--primary-bg);
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(108, 92, 231, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(253, 121, 168, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(116, 185, 255, 0.2) 0%, transparent 50%);
+  color: var(--text-primary);
+  padding: 2rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.lyrics-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.lyrics-header {
+  margin-bottom: 3rem;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 14px 24px;
+  color: var(--text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 8px 32px rgba(108, 92, 231, 0.2);
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(-6px);
+  box-shadow: 0 12px 40px rgba(108, 92, 231, 0.3);
+}
+
+.song-header {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px rgba(108, 92, 231, 0.2);
+  margin-bottom: 2rem;
+}
+
+.song-artwork {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(108, 92, 231, 0.4);
+}
+
+.song-header .song-info {
+  flex: 1;
+}
+
+.song-header .song-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+  text-transform: capitalize;
+  line-height: 1.1;
+  background: linear-gradient(135deg, var(--text-primary) 0%, rgba(255, 255, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.song-header .artist-name {
+  font-size: 1.4rem;
+  color: var(--accent-purple);
+  font-weight: 600;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.lyrics-content {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 3.5rem;
+  box-shadow: 0 8px 32px rgba(108, 92, 231, 0.2);
+}
+
+.lyrics-text-container {
+  max-width: 100%;
+}
+
+.lyrics-text-full {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.2rem;
+  line-height: 2;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  font-weight: 400;
+  text-align: left;
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(108, 92, 231, 0.2);
+}
+
+.error-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.error-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.error-description {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* Responsive for lyrics page */
+@media (max-width: 768px) {
+  .lyrics-page {
+    padding: 1rem;
+  }
+
+  .song-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  .song-header .song-title {
+    font-size: 2.25rem;
+  }
+
+  .song-header .artist-name {
+    font-size: 1.2rem;
+  }
+
+  .lyrics-content {
+    padding: 2rem;
+  }
+
+  .lyrics-text-full {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .back-button {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
 }
