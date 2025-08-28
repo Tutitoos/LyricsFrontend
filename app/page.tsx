@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { LyricsItem } from './types/lyrics';
 
 // Sample data for demonstration
@@ -38,6 +39,7 @@ const sampleLyrics: LyricsItem[] = [
 ];
 
 export default function Home() {
+  const router = useRouter();
   const [lyrics, setLyrics] = useState<LyricsItem[]>([]);
   const [filteredLyrics, setFilteredLyrics] = useState<LyricsItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -93,7 +95,7 @@ export default function Home() {
 
   const handleLyricsClick = (item: LyricsItem) => {
     // Navigate to individual song page
-    window.location.href = `/lyrics/${encodeURIComponent(item.ref)}`;
+    router.push(`/lyrics/${encodeURIComponent(item.ref)}`);
   };
 
   return (
