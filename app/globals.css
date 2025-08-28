@@ -1,12 +1,10 @@
 @import "tailwindcss";
 
-@theme {
+:root {
   --color-background: #000000;
   --color-foreground: #ffffff;
   --color-accent: #ff3b30;
   --color-accent-secondary: #007aff;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 * {
