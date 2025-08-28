@@ -92,7 +92,8 @@ export default function Home() {
   };
 
   const handleLyricsClick = (item: LyricsItem) => {
-    console.log('Opening lyrics for:', item.key);
+    // Navigate to individual song page
+    window.location.href = `/lyrics/${encodeURIComponent(item.ref)}`;
   };
 
   return (
@@ -211,12 +212,10 @@ export default function Home() {
                   
                   <div className="lyrics-preview">
                     <p className="lyrics-text">
-                      {lyricsItem.value.split('\n').map((line, lineIndex) => (
-                        <span key={lineIndex}>
-                          {line}
-                          {lineIndex < lyricsItem.value.split('\n').length - 1 && <br />}
-                        </span>
-                      ))}
+                      {lyricsItem.value.length > 200
+                        ? lyricsItem.value.substring(0, 200) + '...'
+                        : lyricsItem.value
+                      }
                     </p>
                   </div>
                   
