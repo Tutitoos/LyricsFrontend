@@ -50,13 +50,13 @@ export default function Home() {
   const fetchLyrics = async () => {
     try {
       setLoading(true);
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      // In production: const response = await fetch('https://lyrics.kenabot.xyz/v1/lyrics/all');
-      setLyrics(sampleLyrics);
-      setFilteredLyrics(sampleLyrics);
+      const response = await fetch('https://lyrics.kenabot.xyz/v1/lyrics/all');
+      const data = await response.json();
+      setLyrics(data.data);
+      setFilteredLyrics(data.data);
     } catch (error) {
       console.error('Error fetching lyrics:', error);
+      // Fallback to sample data if API fails
       setLyrics(sampleLyrics);
       setFilteredLyrics(sampleLyrics);
     } finally {
