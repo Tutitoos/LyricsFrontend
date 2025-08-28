@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const response = await fetch('https://lyrics.kenabot.xyz/v1/lyrics/all', {
+    const response = await fetch('https://lyrics-api.kenabot.xyz/v1/lyrics/all', {
       headers: {
         'Content-Type': 'application/json',
       },
