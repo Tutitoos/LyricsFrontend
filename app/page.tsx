@@ -30,8 +30,8 @@ export default function Home() {
     } catch (error) {
       console.error('Error fetching lyrics:', error);
       // Fallback to sample data if API fails
-      setLyrics(sampleLyrics);
-      setFilteredLyrics(sampleLyrics);
+      setLyrics([]);
+      setFilteredLyrics([]);
     } finally {
       setLoading(false);
     }
