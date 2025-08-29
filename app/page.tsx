@@ -65,10 +65,35 @@ export default function Home() {
     <div className="modern-app">
       {/* Header */}
       <header className="app-header">
-        <h1 className="app-title">LyricsHub</h1>
-        <p className="app-subtitle">
-          Descubre y explora letras de canciones con un diseño innovador
-        </p>
+        <div className="header-content">
+          <h1 className="app-title">LyricsHub</h1>
+          <p className="app-subtitle">
+            Descubre y explora letras de canciones con un diseño innovador
+          </p>
+          {lyrics.length > 0 && (
+            <button
+              onClick={fetchLyrics}
+              className="refresh-button"
+              disabled={loading}
+              title="Recargar letras"
+            >
+              <svg
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0V9a8.002 8.002 0 0115.356 2M15 15v5h-.582M3.644 12A8.001 8.001 0 0019.418 15m0 0v-5a8.002 8.002 0 00-15.356-2"
+                />
+              </svg>
+              {loading ? 'Recargando...' : 'Recargar'}
+            </button>
+          )}
+        </div>
         
         {/* Search */}
         <div className="search-section">
