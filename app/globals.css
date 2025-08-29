@@ -468,7 +468,14 @@ body {
 }
 
 /* Focus states */
-.search-input:focus {
+.search-input:focus,
+.search-input:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.search-input-wrapper:focus-within {
   outline: none;
 }
 
