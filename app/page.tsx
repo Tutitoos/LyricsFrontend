@@ -8,8 +8,12 @@ export default function Home() {
   const router = useRouter();
   const [lyrics, setLyrics] = useState<LyricsItem[]>([]);
   const [filteredLyrics, setFilteredLyrics] = useState<LyricsItem[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    fetchLyrics();
+  }, []);
 
   const fetchLyrics = async () => {
     try {
