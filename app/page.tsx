@@ -8,12 +8,8 @@ export default function Home() {
   const router = useRouter();
   const [lyrics, setLyrics] = useState<LyricsItem[]>([]);
   const [filteredLyrics, setFilteredLyrics] = useState<LyricsItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    fetchLyrics();
-  }, []);
 
   const fetchLyrics = async () => {
     try {
@@ -22,14 +18,15 @@ export default function Home() {
       const data = await response.json();
 
       if (data.error || !data.data || data.data.length === 0) {
-        throw new Error(data.error || 'No lyrics data received');
+        setLyrics([]);
+        setFilteredLyrics([]);
+        return;
       }
 
       setLyrics(data.data);
       setFilteredLyrics(data.data);
     } catch (error) {
       console.error('Error fetching lyrics:', error);
-      // Fallback to sample data if API fails
       setLyrics([]);
       setFilteredLyrics([]);
     } finally {
