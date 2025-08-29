@@ -53,7 +53,7 @@ export default function LyricsPage() {
       <div className="lyrics-page">
         <div className="loading-state">
           <div className="loading-spinner"></div>
-          <p className="loading-text">Cargando letras...</p>
+          <p className="loading-text">Loading lyrics...</p>
         </div>
       </div>
     );
@@ -65,9 +65,9 @@ export default function LyricsPage() {
         <div className="error-state">
           <div className="error-icon">⚠️</div>
           <h2 className="error-title">Error</h2>
-          <p className="error-description">{error || 'Letras no encontradas'}</p>
+          <p className="error-description">{error || 'Lyrics not found'}</p>
           <button onClick={handleBack} className="back-button">
-            Volver
+            Back
           </button>
         </div>
       </div>
@@ -96,7 +96,7 @@ export default function LyricsPage() {
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-            Volver
+            Back
           </button>
           
           <div className="song-header">
