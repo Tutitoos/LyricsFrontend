@@ -7,6 +7,17 @@
   box-sizing: border-box;
 }
 
+/* Remove default browser outlines */
+input, textarea, button, select {
+  outline: none;
+  border: none;
+}
+
+input:focus, textarea:focus, button:focus, select:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+
 /* CSS Variables for Modern Theme */
 :root {
   --primary-bg: #0a0a0f;
@@ -103,6 +114,8 @@ body {
 .search-container:focus-within {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(108, 92, 231, 0.4);
+  border-radius: 24px;
+  outline: none;
 }
 
 .search-input-wrapper {
@@ -129,6 +142,8 @@ body {
   font-size: 1.1rem;
   color: var(--text-primary);
   font-weight: 400;
+  box-shadow: none;
+  border-radius: inherit;
 }
 
 .search-input::placeholder {
@@ -467,6 +482,16 @@ body {
 
 /* Focus states */
 .search-input:focus,
+.search-input:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.search-input-wrapper:focus-within {
+  outline: none;
+}
+
 .lyrics-card:focus,
 .clear-button:focus,
 .play-button:focus {
