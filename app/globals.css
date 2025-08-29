@@ -466,7 +466,10 @@ body {
 }
 
 /* Focus states */
-.search-input:focus,
+.search-input:focus {
+  outline: none;
+}
+
 .lyrics-card:focus,
 .clear-button:focus,
 .play-button:focus {
