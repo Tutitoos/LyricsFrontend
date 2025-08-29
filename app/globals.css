@@ -7,6 +7,17 @@
   box-sizing: border-box;
 }
 
+/* Remove default browser outlines */
+input, textarea, button, select {
+  outline: none;
+  border: none;
+}
+
+input:focus, textarea:focus, button:focus, select:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+
 /* CSS Variables for Modern Theme */
 :root {
   --primary-bg: #0a0a0f;
