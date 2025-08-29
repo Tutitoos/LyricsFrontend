@@ -13,7 +13,7 @@ export async function GET() {
     }
 
     const data = await response.json();
-    
+
     return NextResponse.json(data, {
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -23,14 +23,13 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Error fetching lyrics:', error);
-    
-    // Return empty data structure on error
+
     return NextResponse.json(
-      { 
+      {
         data: [],
         error: 'Failed to fetch lyrics from external API'
       },
-      { 
+      {
         status: 500,
         headers: {
           'Access-Control-Allow-Origin': '*',

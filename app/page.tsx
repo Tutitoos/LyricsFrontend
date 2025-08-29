@@ -22,16 +22,17 @@ export default function Home() {
       const data = await response.json();
 
       if (data.error || !data.data || data.data.length === 0) {
-        throw new Error(data.error || 'No lyrics data received');
+        setLyrics([]);
+        setFilteredLyrics([]);
+        return;
       }
 
       setLyrics(data.data);
       setFilteredLyrics(data.data);
     } catch (error) {
       console.error('Error fetching lyrics:', error);
-      // Fallback to sample data if API fails
-      setLyrics(sampleLyrics);
-      setFilteredLyrics(sampleLyrics);
+      setLyrics([]);
+      setFilteredLyrics([]);
     } finally {
       setLoading(false);
     }
@@ -68,10 +69,35 @@ export default function Home() {
     <div className="modern-app">
       {/* Header */}
       <header className="app-header">
-        <h1 className="app-title">LyricsHub</h1>
-        <p className="app-subtitle">
-          Descubre y explora letras de canciones con un diseño innovador
+        <div className="header-content">
+          <h1 className="app-title">LyricsHub</h1>
+          <p className="app-subtitle">
+          Discover and explore song lyrics with innovative design
         </p>
+          {lyrics.length > 0 && (
+            <button
+              onClick={fetchLyrics}
+              className="refresh-button"
+              disabled={loading}
+              title="Reload lyrics"
+            >
+              <svg
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0V9a8.002 8.002 0 0115.356 2M15 15v5h-.582M3.644 12A8.001 8.001 0 0019.418 15m0 0v-5a8.002 8.002 0 00-15.356-2"
+                />
+              </svg>
+              {loading ? 'Reloading...' : 'Reload'}
+            </button>
+          )}
+        </div>
         
         {/* Search */}
         <div className="search-section">
@@ -94,7 +120,7 @@ export default function Home() {
                 type="text"
                 value={searchQuery}
                 onChange={handleSearch}
-                placeholder="Buscar letras de canciones..."
+                placeholder="Search song lyrics..."
                 className="search-input"
               />
               <button
@@ -126,10 +152,10 @@ export default function Home() {
         {searchQuery && (
           <div className="results-header">
             <h2 className="results-title">
-              Resultados para "{searchQuery}"
+              Results for "{searchQuery}"
             </h2>
             <div className="results-count">
-              {filteredLyrics.length} canción{filteredLyrics.length !== 1 ? 'es' : ''} encontrada{filteredLyrics.length !== 1 ? 's' : ''}
+              {filteredLyrics.length} song{filteredLyrics.length !== 1 ? 's' : ''} found
             </div>
           </div>
         )}
@@ -137,14 +163,29 @@ export default function Home() {
         {loading ? (
           <div className="loading-state">
             <div className="loading-spinner"></div>
-            <p className="loading-text">Cargando letras...</p>
+            <p className="loading-text">Loading lyrics...</p>
+          </div>
+        ) : lyrics.length === 0 ? (
+          <div className="empty-state">
+            <div className="empty-icon">🎵</div>
+            <h3 className="empty-title">Welcome to LyricsHub</h3>
+            <p className="empty-description">
+              Load the lyrics database to start exploring
+            </p>
+            <button
+              onClick={fetchLyrics}
+              className="load-button"
+              disabled={loading}
+            >
+              {loading ? 'Loading...' : 'Load lyrics'}
+            </button>
           </div>
         ) : filteredLyrics.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">🎵</div>
-            <h3 className="empty-title">No se encontraron resultados</h3>
+            <div className="empty-icon">🔍</div>
+            <h3 className="empty-title">No results found</h3>
             <p className="empty-description">
-              Intenta con otros términos de búsqueda
+              Try other search terms
             </p>
           </div>
         ) : (
@@ -160,14 +201,14 @@ export default function Home() {
                   onClick={() => handleLyricsClick(lyricsItem)}
                   tabIndex={0}
                   role="button"
-                  aria-label={`Ver letras de ${song} por ${artist}`}
+                  aria-label={`View lyrics of ${song} by ${artist}`}
                 >
                   <div className="card-header">
                     <div className="song-info">
                       <h3 className="song-title">{song}</h3>
                       <p className="artist-name">{artist}</p>
                     </div>
-                    <button className="play-button" aria-label="Reproducir">
+                    <button className="play-button" aria-label="Play">
                       <svg
                         fill="currentColor"
                         viewBox="0 0 24 24"
@@ -189,7 +230,7 @@ export default function Home() {
                   
                   <div className="card-footer">
                     <div className="view-more">
-                      <span>Ver letras completas</span>
+                      <span>View complete lyrics</span>
                       <svg
                         fill="none"
                         stroke="currentColor"
