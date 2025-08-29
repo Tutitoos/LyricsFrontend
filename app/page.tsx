@@ -136,9 +136,24 @@ export default function Home() {
             <div className="loading-spinner"></div>
             <p className="loading-text">Cargando letras...</p>
           </div>
-        ) : filteredLyrics.length === 0 ? (
+        ) : lyrics.length === 0 ? (
           <div className="empty-state">
             <div className="empty-icon">🎵</div>
+            <h3 className="empty-title">Bienvenido a LyricsHub</h3>
+            <p className="empty-description">
+              Carga la base de datos de letras para comenzar a explorar
+            </p>
+            <button
+              onClick={fetchLyrics}
+              className="load-button"
+              disabled={loading}
+            >
+              {loading ? 'Cargando...' : 'Cargar letras'}
+            </button>
+          </div>
+        ) : filteredLyrics.length === 0 ? (
+          <div className="empty-state">
+            <div className="empty-icon">🔍</div>
             <h3 className="empty-title">No se encontraron resultados</h3>
             <p className="empty-description">
               Intenta con otros términos de búsqueda
