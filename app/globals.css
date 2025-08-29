@@ -517,10 +517,6 @@ body {
   margin: 0 auto;
 }
 
-.lyrics-header {
-  margin-bottom: 3rem;
-}
-
 .back-button {
   display: inline-flex;
   align-items: center;
@@ -604,10 +600,6 @@ body {
   border-radius: 24px;
   padding: 3.5rem;
   box-shadow: 0 8px 32px rgba(108, 92, 231, 0.2);
-}
-
-.lyrics-text-container {
-  max-width: 100%;
 }
 
 .lyrics-text-full {
