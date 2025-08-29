@@ -103,6 +103,8 @@ body {
 .search-container:focus-within {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(108, 92, 231, 0.4);
+  border-radius: 24px;
+  outline: none;
 }
 
 .search-input-wrapper {
