@@ -129,6 +129,8 @@ body {
   font-size: 1.1rem;
   color: var(--text-primary);
   font-weight: 400;
+  box-shadow: none;
+  border-radius: inherit;
 }
 
 .search-input::placeholder {
